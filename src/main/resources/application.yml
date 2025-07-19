@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: spring
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/book?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: root
+    password: sql@1q2w3e
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+        dialect.storage_engine: innodb
+    show-sql: true
+    hibernate:
+      ddl-auto: update
