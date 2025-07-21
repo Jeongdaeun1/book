@@ -18,6 +18,14 @@ configurations {
 		extendsFrom annotationProcessor
 	}
 }
+configurations.all {
+	resolutionStrategy.eachDependency { details ->
+		if (details.requested.group == 'io.jsonwebtoken') {
+			details.useVersion '0.12.5'
+		}
+	}
+}
+
 
 repositories {
 	mavenCentral()
@@ -41,6 +49,21 @@ dependencies {
 
 	annotationProcessor 'org.projectlombok:lombok'
 
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.projectlombok:lombok'
+
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'
+
+
+	constraints {
+		add("implementation", "io.jsonwebtoken:jjwt-api:0.12.5")
+		add("runtimeOnly", "io.jsonwebtoken:jjwt-impl:0.12.5")
+		add("runtimeOnly", "io.jsonwebtoken:jjwt-jackson:0.12.5")
+	}
+
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	testImplementation 'org.springframework.security:spring-security-test'
@@ -50,4 +73,7 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	//include '**/*Test.class'  // 이 라인 추가
+
 }
+
