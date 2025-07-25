@@ -18,6 +18,6 @@ spring:
     hibernate:
       ddl-auto: update
 jwt:
-  issuer: danviva2005@kookmin.ac.kr
-  secret-key: study-springboot
+  issuer: daeun1q2w3e@gmail.com
+  secret_key: study-springboot
 

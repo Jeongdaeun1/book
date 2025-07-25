@@ -37,9 +37,9 @@ class TokenProviderTest {
 
         String token = tokenProvider.generateToken(testUser, Duration.ofDays(14));
 
-        Long userId = Jwts.parserBuilder() // 1. parser() 대신 parserBuilder() 사용
+        Long userId = Jwts.parser() // 1. parser() 대신 parserBuilder() 사용
                 .setSigningKey(jwtProperties.getSecretKey()) // 2. 서명 키 설정
-                .build() // 3. 파서를 빌드
+                .build()
                 .parseClaimsJws(token) // 4. 토큰 파싱 (이제 경고가 사라짐)
                 .getBody()
                 .get("id", Long.class);

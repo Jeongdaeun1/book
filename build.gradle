@@ -51,7 +51,9 @@ dependencies {
 
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.projectlombok:lombok'
-
+	implementation( 'io.jsonwebtoken:jjwt:0.9.1')
+	implementation ('javax.xml.bind:jaxb-api:2.3.1')
+/*
 	implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'
@@ -62,7 +64,7 @@ dependencies {
 		add("runtimeOnly", "io.jsonwebtoken:jjwt-impl:0.12.5")
 		add("runtimeOnly", "io.jsonwebtoken:jjwt-jackson:0.12.5")
 	}
-
+*/
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -71,9 +73,11 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+
+/*
 tasks.named('test') {
 	useJUnitPlatform()
-	//include '**/*Test.class'  // 이 라인 추가
+	//include 'Test.class' //이 라인 추가
 
 }
-
+*/
