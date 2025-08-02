@@ -28,14 +28,7 @@ public class TokenProvider {
     private final JwtProperties jwtProperties;
     //private Key secretKey; // Key 객체를 저장할 필드 추가
 
-    // Key 객체를 한번만 생성하기 위한 초기화 메소드
-    /*
-    @PostConstruct
-    private void init() {
-        byte[] keyBytes = jwtProperties.getSecretKey().getBytes(StandardCharsets.UTF_8);
-        this.secretKey = Keys.hmacShaKeyFor(keyBytes);
-    }
-    */
+
 
     public String generateToken(User user, Duration expiredAt) {
         Date now = new Date();
@@ -61,7 +54,7 @@ public class TokenProvider {
     //유효성 검증
     public boolean validToken(String token) {
         try {
-            Jwts.parser()
+            Jwts.parserBuilder()
                     .setSigningKey(jwtProperties.getSecretKey())
                     .build()
                     .parseClaimsJws(token);
@@ -88,7 +81,7 @@ public class TokenProvider {
 
     private Claims getClaims(String token) {
 
-        return Jwts.parser()
+        return Jwts.parserBuilder()
                 .setSigningKey(jwtProperties.getSecretKey())
                 .build()
                 .parseClaimsJws(token)

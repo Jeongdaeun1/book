@@ -27,8 +27,8 @@ class TokenProviderTest {
     @Autowired
     private JwtProperties jwtProperties;
 
-    @DisplayName("generateToken(): 유저 정보와 만료 기간을 전달해 토큰을 만들 수 있다.")
     @Test
+    @DisplayName("generateToken(): 유저 정보와 만료 기간을 전달해 토큰을 만들 수 있다.")
     void generateToken() {
         User testUser = userRepository.save(User.builder()
                 .email("user@gmail.com")
@@ -39,7 +39,6 @@ class TokenProviderTest {
 
         Long userId = Jwts.parser() // 1. parser() 대신 parserBuilder() 사용
                 .setSigningKey(jwtProperties.getSecretKey()) // 2. 서명 키 설정
-                .build()
                 .parseClaimsJws(token) // 4. 토큰 파싱 (이제 경고가 사라짐)
                 .getBody()
                 .get("id", Long.class);
@@ -47,8 +46,8 @@ class TokenProviderTest {
         assertThat(userId).isEqualTo(testUser.getId());
     }
 
-    @DisplayName("validToken(): 만료된 토큰인 때에 유효성 거증에 실패한다.")
     @Test
+    @DisplayName("validToken(): 만료된 토큰인 때에 유효성 거증에 실패한다.")
     void validToken_invalidToken() {
         String token = JwtFactory.builder()
                 .expiration(new Date(new Date().getTime() - Duration.ofDays(7).
@@ -60,8 +59,8 @@ class TokenProviderTest {
         assertThat(result).isFalse();
     }
 
-    @DisplayName("validToken(): 유효한 토큰인 때에 유효성 검증에 성공한다.")
     @Test
+    @DisplayName("validToken(): 유효한 토큰인 때에 유효성 검증에 성공한다.")
     void validToken_validToken() {
         String token = JwtFactory.withDefaultValues()
                 .createToken(jwtProperties);
@@ -71,8 +70,8 @@ class TokenProviderTest {
         assertThat(result).isTrue();
     }
 
-    @DisplayName("getAuthentication(): 토큰 기반으로 인증 정보를 가져올 수 있다.")
     @Test
+    @DisplayName("getAuthentication(): 토큰 기반으로 인증 정보를 가져올 수 있다.")
     void getAuthentication() {
         String userEmail = "user@email.com";
         String token = JwtFactory.builder()
@@ -86,8 +85,8 @@ class TokenProviderTest {
                 isEqualTo(userEmail);
     }
 
-    @DisplayName("getUserId(): 토큰으로 유저 ID를 가져올 수 있다.")
     @Test
+    @DisplayName("getUserId(): 토큰으로 유저 ID를 가져올 수 있다.")
     void getUserId() {
         Long userId = 1L;
         String token = JwtFactory.builder()
