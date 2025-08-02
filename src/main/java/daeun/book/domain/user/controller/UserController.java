@@ -1,7 +1,9 @@
 package daeun.book.domain.user.controller;
 
 
+import daeun.book.domain.user.dto.reqeust.LoginRequest;
 import daeun.book.domain.user.dto.reqeust.SignupRequest;
+import daeun.book.domain.user.dto.response.LoginResponse;
 import daeun.book.domain.user.dto.response.SignupResponse;
 import daeun.book.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +23,7 @@ public class UserController {
 
     //TODO: 로그인 API 구현
     @PostMapping("/login")
-    public ResponseEntity
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        return ResponseEntity.ok(userService.login(request));
+    }
 }

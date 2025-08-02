@@ -1,11 +1,14 @@
 package daeun.book.domain.user.service;
 
+import daeun.book.domain.user.dto.reqeust.LoginRequest;
 import daeun.book.domain.user.dto.reqeust.SignupRequest;
+import daeun.book.domain.user.dto.response.LoginResponse;
 import daeun.book.domain.user.dto.response.SignupResponse;
 import daeun.book.domain.user.entity.User;
 import daeun.book.domain.user.repository.UserRepository;
 import daeun.book.global.config.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +20,7 @@ import java.time.Duration;
 public class UserService {
     private final UserRepository userRepository;
     private final TokenProvider tokenProvider;
+    private final PasswordEncoder passwordEncoder;
 
     public User findById(Long userId) {
         return userRepository.findById(userId)
@@ -43,5 +47,19 @@ public class UserService {
     }
 
     //TODO: 로그인 구현
+    @Transactional
+    public LoginResponse login(LoginRequest request) {
+
+        User user = userRepository.findByEmail(request.email())
+                .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 이메일입니다"));
+
+        if(!passwordEncoder.matches(request.password(), user.getPassword())) {
+            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+        }
+
+        String accessToken = tokenProvider.generateToken(user, Duration.ofDays(1));
+
+        return new LoginResponse(accessToken, user.getName());
+    }
 
 }

@@ -1,6 +1,7 @@
 package daeun.book.domain.user.dto.response;
 
-public class LoginResponse {
+public record LoginResponse (
     String accessToken,
     String name
+) {
 }
