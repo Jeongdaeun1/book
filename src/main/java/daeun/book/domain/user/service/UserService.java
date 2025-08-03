@@ -53,7 +53,7 @@ public class UserService {
         User user = userRepository.findByEmail(request.email())
                 .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 이메일입니다"));
 
-        if(!passwordEncoder.matches(request.password(), user.getPassword())) {
+        if(!request.password().equals(user.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
 
