@@ -35,8 +35,8 @@ public class UserService {
 
         User user = User.builder()
                 .email(email)
-                .name(name)
                 .password(password)
+                .name(name)
                 .build();
 
         userRepository.save(user);

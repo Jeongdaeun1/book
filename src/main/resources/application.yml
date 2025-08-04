@@ -19,5 +19,5 @@ spring:
       ddl-auto: update
 jwt:
   issuer: daeun1q2w3e@gmail.com
-  secret_key: study-springboot
+  secret_key: studyspringboot1q2w3estudyspringboot1q2w3estudyspringboot1q2w3e
 
