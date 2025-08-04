@@ -9,6 +9,7 @@ import lombok.*;
 @Table(name = "books")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Book {
