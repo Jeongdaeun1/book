@@ -26,4 +26,24 @@ public class ReviewController {
         List<ReviewDto> reviewlist = reviewService.getReviewList();
         return ResponseEntity.ok(reviewlist);
     }
+
+    @GetMapping("/{reviewId}")
+    public ResponseEntity<ReviewDto> getReviewDetail(@PathVariable Long reviewId){
+        ReviewDto reviewDetail = reviewService.getReviewDetail(reviewId);
+
+        return ResponseEntity.ok(reviewDetail);
+    }
+
+    @PutMapping("/{reviewId")
+    public ResponseEntity<Void> modReview(@RequestBody ReviewRequest request, @PathVariable Long reviewId){
+        reviewService.modReview(reviewId, request);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<Void> deleteReview(@PathVariable Long reviewId) {
+        reviewService.deleteReview(reviewId);
+
+        return ResponseEntity.noContent().build();
+    }
 }

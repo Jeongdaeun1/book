@@ -31,4 +31,9 @@ public class Review {
     //java string = varchar(255) -> TEXT
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

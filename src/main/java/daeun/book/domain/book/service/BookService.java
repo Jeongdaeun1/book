@@ -5,6 +5,9 @@ import daeun.book.domain.book.dto.request.BookRequest;
 import daeun.book.domain.book.entity.Book;
 import daeun.book.domain.book.enums.ReadStatus;
 import daeun.book.domain.book.repository.BookRepository;
+import daeun.book.domain.review.dto.ReviewDto;
+import daeun.book.domain.review.entity.Review;
+import daeun.book.domain.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class BookService {
     private final BookRepository bookRepository;
+    private final ReviewRepository reviewRepository;
 
     @Transactional
     public void bookRegister(BookRequest request) {
@@ -57,5 +61,14 @@ public class BookService {
 
         return new BookDto(book);
 
+    }
+
+    @Transactional
+    public List<ReviewDto> getReviewListByBook(){
+        List<Review> reviews = reviewRepository.findAll();
+
+        return reviews.stream()
+                .map(ReviewDto::new)
+                .collect(Collectors.toList());
     }
 }

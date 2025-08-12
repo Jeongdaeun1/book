@@ -5,6 +5,8 @@ import daeun.book.domain.book.dto.request.BookRequest;
 import daeun.book.domain.book.entity.Book;
 import daeun.book.domain.book.repository.BookRepository;
 import daeun.book.domain.book.service.BookService;
+import daeun.book.domain.review.dto.ReviewDto;
+import daeun.book.domain.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
+    private final ReviewService reviewService;
 
     @PostMapping
     public ResponseEntity<Void> bookRegister(@RequestBody BookRequest request) {
@@ -36,5 +39,12 @@ public class BookController {
         BookDto bookDetail = bookService.getBookDetail(bookId);
 
         return ResponseEntity.ok(bookDetail);
+    }
+
+    @GetMapping("/{bookId}/reviews")
+    public ResponseEntity<List<ReviewDto>> getReviewListByBook(@PathVariable Long bookId){
+        List<ReviewDto> reviewListByBook = bookService.getReviewListByBook();
+
+        return ResponseEntity.ok(reviewListByBook);
     }
 }
